@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No Hello – Коммуникация</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background-color: #fff;
+      color: #333;
+      padding: 40px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 1.4rem;
+    }
+    h1 {
+      font-size: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .strike {
+      text-decoration: line-through;
+      text-decoration-color: red;
+      margin: 0 0.5rem;
+    }
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: #000;
+      margin-left: 0.2rem;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 900px;
+      width: 100%;
+      margin-bottom: 50px;
+    }
+    .text {
+      width: 50%;
+      padding: 20px;
+      font-size: 1.4rem;
+    }
+    .image {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+    }
+    .image img {
+      max-width: 80%;
+      height: auto;
+    }
+    .reverse {
+      flex-direction: row-reverse;
+    }
+    body {
+      padding-bottom: 23px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 60px;
+    }
+    .footer a {
+      color: #0073e6;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    .footer a:hover {
+      color: #005bb5;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>
+      no 
+      <span class="strike">
+        <span id="changingWord"></span>
+        <span id="emojiGif"></span>
+      </span>
+      <span class="cursor"></span>
+    </h1>
+    <p>Если я не отвечаю - это означает, что я, в перерыве между работой на заводе и поездкой в офис РКН сел почитать фанфики про кашенцовых и не могу ответить тебе, своеты что делать - ниже </p>
+  </div>
+
+  <div class="section">
+    <div class="text">
+      <p><strong>Я не ответил???</strong><br> попробуй попросту продублировать сообщение, я думаю, что это может помочь</p>
+      <p><strong>Всё равно ты остался без ответа??</strong><br> подожди некоторое время и продублируй ещё один раз</p>
+    </div>
+    <div class="image">
+      <img src="photo.jpg" alt="Пример чата">
+    </div>
+  </div>
+
+  <div class="section reverse">
+    <div class="text">
+      <p><strong>для скорострелов.</strong><br> зайди в моё био и найди там строку "manager", напиши этому человеку, возможно там тебе ответят быстрее. Но помни, быстрее всего всё равно отвечу я, со своего личного аккаунта и ты никак не сможешь ускорить это. спасиб за прочтение:)</p>
+    </div>
+    <div class="image">
+      <img src="photo2.jpg" alt="Пример чата">
+    </div>
+  </div>
+
+  <div class="can">
+    <h2>Пример правильного диалога:</h2>
+    <img src="dialog.gif" alt="Пример хорошего диалога">
+  </div>
+
+  <div class="footer">
+    Вдохновился <a href="https://nohello.net" target="_blank">nohello.net</a><br> скоро будут другие проекты! разработано <a href="https://github.com/scramble22" target="_blank">scramble22</a>:)
+  </div>
+
+<script>
+  const words = [
+    { text: "1 zzz вам или 2 няшко другому?", gif: "rkn.gif" },
+    { text: "ау", gif: "brainrot.gif" },
+    { text: "эу, ты где?", gif: "rkn2.gif" },
+    { text: "здарова, куда пропал?", gif: "brainrot2.gif" },
+    { text: "ты здесь??", gif: "cat_sleeping.gif" },
+    { text: "WTF?? FRFR BRUUH SCULL EMOJI", gif: "joker.gif" },
+    { text: "мать е", gif: "noises.gif"},
+    { text: "ыыы аа ээ уу а", gif: "monkey.gif" }
+  ];
+
+  let currentWordIndex = 0;
+  let currentCharIndex = 0;
+  let isDeleting = false;
+  let currentWord = "";
+  const changingWordSpan = document.getElementById("changingWord");
+  const emojiGifSpan = document.getElementById("emojiGif");
+  const typingSpeed = 150;
+  const deletingSpeed = 100;
+  const pauseBetweenWords = 1000;
+
+  function typeEffect() {
+    const fullWord = words[currentWordIndex].text;
+    const gifPath = words[currentWordIndex].gif;
+
+    if (!isDeleting) {
+      if (currentCharIndex < fullWord.length) {
+        currentWord += fullWord.charAt(currentCharIndex);
+        currentCharIndex++;
+        changingWordSpan.textContent = currentWord;
+        setTimeout(typeEffect, typingSpeed);
+      } else {
+        emojiGifSpan.innerHTML = `<img src="${gifPath}" alt="emoji" style="height: 1em; vertical-align: middle;">`;
+        isDeleting = true;
+        setTimeout(typeEffect, pauseBetweenWords);
+      }
+    } else {
+      if (currentCharIndex > 0) {
+        currentWord = currentWord.slice(0, -1);
+        currentCharIndex--;
+        changingWordSpan.textContent = currentWord;
+        emojiGifSpan.innerHTML = "";
+        setTimeout(typeEffect, deletingSpeed);
+      } else {
+        isDeleting = false;
+        currentWordIndex = (currentWordIndex + 1) % words.length;
+        setTimeout(typeEffect, typingSpeed);
+      }
+    }
+  }
+
+  typeEffect();
+</script>
+</body>
+</html>
