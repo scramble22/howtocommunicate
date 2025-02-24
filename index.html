@@ -90,6 +90,23 @@
       color: #005bb5;
       text-decoration: underline;
     }
+    @media (max-width: 768px) {
+      /* Для изображений в секциях делаем их меньше */
+      .image img {
+        max-width: 50%;
+        height: auto;
+      }
+
+      /* Для гифки в блоке .can оставляем её масштабируемой под экран */
+      .can img {
+        max-width: 100%;
+        max-height: 90vh; /* чтобы не превышала высоту экрана */
+        width: auto;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+    }
   </style>
 </head>
 <body>
@@ -111,7 +128,7 @@
       <p><strong>Всё равно ты остался без ответа??</strong><br> подожди некоторое время и продублируй ещё один раз</p>
     </div>
     <div class="image">
-      <img src="photo.JPG" alt="Пример чата">
+      <img src="photo.jpg" alt="Пример чата">
     </div>
   </div>
 
@@ -120,7 +137,7 @@
       <p><strong>для скорострелов.</strong><br> зайди в моё био и найди там строку "manager", напиши этому человеку, возможно там тебе ответят быстрее. Но помни, быстрее всего всё равно отвечу я, со своего личного аккаунта и ты никак не сможешь ускорить это. спасиб за прочтение:)</p>
     </div>
     <div class="image">
-      <img src="photo2.JPG" alt="Пример чата">
+      <img src="photo2.jpg" alt="Пример чата">
     </div>
   </div>
 
